@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[
+<validate>
+	<schema key="${1:Schema Name}"/>
+	<on-fail>
+		<makefault version="pox">
+			<reason value="Failed Schema Validation"/>
+			<detail expression="get-property('ERROR_MESSAGE')"/>
+		</makefault>
+		<call-template target="${2:Logger Name}">
+			<with-param name="message" value="{get-property('ERROR_MESSAGE')}" />
+		</call-template>
+		<respond/>
+	</on-fail>
+</validate>]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>val</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>text.xml,source.wso2</scope>
+</snippet>

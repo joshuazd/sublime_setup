@@ -1,0 +1,68 @@
+
+<snippet>
+	<content><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<api xmlns="http://ws.apache.org/ns/synapse" name="${1:api_name}" context="/${2:context}">
+    <resource methods="POST">
+        <inSequence>
+            <call-template target="${3:Logger Name}">
+                <with-param name="message" value="${4:API Name} Service Invoked"/>
+            </call-template>
+            <validate>
+                <schema key="${5:Schema Name}"/>
+                <on-fail>
+                    <makefault version="pox">
+                        <reason value="Failed Schema Validation"/>
+                        <detail expression="get-property('ERROR_MESSAGE')"/>
+                    </makefault>
+                    <call-template target="${3:Logger Name}">
+				<with-param name="message" value="{get-property('ERROR_MESSAGE')}" />
+			</call-template>
+                    <respond/>
+                </on-fail>
+            </validate>
+            <call-template target="${3:Logger Name}">
+                <with-param name="message" value="Start XSLT Transformation - payload to DS request"/>
+            </call-template>
+            <xslt key="${6:XSLT Name}">
+                <property name="BATCH_ID" expression="get-property('MessageID')"/>
+            </xslt>
+            <call-template target="${3:Logger Name}">
+                <with-param name="message" value="Complete XSLT Transformation - payload to DS request"/>
+            </call-template>
+            <call-template target="${3:Logger Name}">
+                <with-param name="message" value="${4:API Name} Batch Insert Started"/>
+            </call-template>
+            <send>
+                <endpoint>
+                    <address uri="local:///services/${7:Data Service Name}" format="soap11"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <call-template target="${3:Logger Name}">
+                <with-param name="message" value="${4:API Name} Batch Insert Complete"/>
+            </call-template>
+            <payloadFactory media-type="xml">
+                <format>
+                    <Success xmlns="">Thank you. Your file has been submitted.</Success>
+                </format>
+                <args/>
+            </payloadFactory>
+            <call-template target="${3:Logger Name}">
+                <with-param name="message" value="${4:API Name} Service Complete"/>
+            </call-template>
+            <respond/>
+        </outSequence>
+        <faultSequence>
+            <makefault version="pox">
+                <reason value="Service Error"/>
+            </makefault>
+        </faultSequence>
+    </resource>
+</api>$8]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>api-f</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>text.xml,source.wso2</scope>
+</snippet>

@@ -1,0 +1,317 @@
+%YAML 1.2
+---
+name: ESB
+file_extensions:
+  - esb
+scope: source.esb
+
+contexts:
+  main:
+    - include: api
+    
+  expressions:
+    - include: property
+    - include: header
+    - include: call_template
+    - include: call
+    - include: send
+    - include: xslt
+    
+    
+  xslt:
+    - match: '(?=xslt\s+key\="[^{]+"\s*{)'
+      push:
+        - meta_scope: meta.xslt.esb
+        - match: '}'
+          scope: punctuation.section.xslt.end.esb
+          pop: true
+        - match: 'xslt'
+          scope: keyword.operator.esb
+        - match: 'key'
+          scope: entity.other.attribute-name.key.esb
+        - match: '\='
+          scope: punctuation.separator.key-value.esb
+        - include: string
+        - match: '{'
+          scope: punctuation.section.xslt.begin.esb
+          push:
+            - include: property
+            - match: '(?=})'
+              pop: true
+        
+  
+  call:
+    - match: '(call)(\()'
+      captures:
+        1: keyword.control.flow.esb
+        2: punctuation.definition.parameters.begin.esb
+      push:
+        - meta_scope: meta.call.esb
+        - match: '\)'
+          scope: punctuation.definition.parameters.end.esb
+          pop: true
+        - include: endpoint
+        
+  endpoint:
+    - match: '(endpoint)(:)\s*'
+      captures:
+        1: storage.type.function.esb
+        2: punctuation.section.function.begin.esb
+    - include: ep_key
+    - include: ep_http
+    - include: ep_address
+    
+  ep_key:
+    - match: (?=key)
+      push:
+        - include: kwargs
+        - match: ''
+          pop: true
+          
+    
+  call_template:
+    - match: '(call\-template)\s+'
+      captures:
+        1: keyword.control.function-call.esb
+      push:
+        - meta_scope: meta.function-call.esb
+        - include: definition
+        - match: '\s*$'
+          pop: true
+ 
+  header:
+    - match: '(header)\s+'
+      captures:
+        1: constant.language.esb
+      push:
+        - meta_scope: meta.header.esb
+        - include: definition
+        - match: '\s*$'
+          pop: true
+     
+  property:
+    - match: '(property)\s+'
+      captures:
+        1: constant.language.esb
+      push:
+        - meta_scope: meta.property.esb
+        - include: definition
+        - match: '\s*$'
+          pop: true
+          
+  definition:
+    - match: '[a-zA-Z\.0-9\-]'
+      scope: entity.name.function.esb
+    - match: '(?=\()'
+      push:
+        - meta_scope: meta.args.esb
+        - match: '\('
+          scope: punctuation.definition.begin.esb
+        - match: '\)'
+          scope: punctuation.definition.end.esb
+          pop: true
+        - include: kwargs
+    
+    
+  kwargs:
+    - match: '([a-z]+)\s*(=)(?!=)'
+      captures:
+        1: variable.parameter.esb
+        2: keyword.operator.assignment.esb
+      push:
+        - match: '\s*(?:(,)|(?=$\n?|[\)\:]))'
+          captures:
+            1: punctuation.separator.parameters.esb
+          pop: true
+        - include: string
+        
+  string:
+    - match: '(")'
+      captures:
+        1: punctuation.definition.string.begin.esb
+      push:
+        - meta_scope: string.quoted.double.block.esb
+        - match: '(")|(\n)'
+          captures:
+            1: punctuation.definition.string.end.esb
+            2: invalid.illegal.unclosed-string.esb
+          pop: true
+        - include: xpath
+    
+  sequence:
+    - match: '(?=(in|out)\s*{)'
+      push:
+        - meta_scope: meta.sequence.esb
+        - match: 'in|out'
+          scope: entity.name.function.esb
+        - match: '{'
+          scope: punctuation.section.sequence.begin.esb
+          push:
+            - include: expressions
+            - match: '(?=})'
+              pop: true
+        - match: '}'
+          scope: punctuation.section.sequence.end.esb
+          pop: true
+    
+  resource:
+    - match: '(resource)\s*(?=\([a-zA-Z0-9/\{\}]*\))'
+      captures:
+        1: storage.type.function.resource.esb
+      push:
+        - meta_scope: meta.resource.esb
+        - match: '(?=\()'
+          push:
+            - meta_content_scope: meta.resource.uri.esb
+            - match: '\)'
+              scope: punctuation.definition.uri.end.esb
+              pop: true
+            - match: '\('
+              scope: punctuation.definition.uri.begin.esb
+            - include: uri
+        - match: '(?=->)'
+          push:
+            - match: ->
+              scope: punctuation.separator.annontation.esb
+            - match: '(?=[a-zA-Z]+(,\s*[a-zA-Z]+)*)'
+              push:
+                - meta_scope: meta.resource_methods.esb
+                - match: (POST|GET|PUT|DELETE)
+                  scope: constant.language.esb
+                - match: ','
+                  scope: punctuation.separator.methods.esb
+                - match: '[a-zA-Z]+'
+                  scope: invalid.illegal.name.esb
+                - match: '(?={)'
+                  pop: true
+            - match: '(?={)'
+              pop: true
+        - match: '{'
+          scope: punctuation.section.resource.begin.esb
+          push:
+            - include: sequence
+            - match: '(?=})'
+              pop: true
+        - match: '}'
+          scope: punctuation.section.resource.end.esb
+          pop: true
+    
+  api:
+    - match: '(api)\s+(?=[a-zA-Z0-9]+\(.*\)\s*{)'
+      captures:
+        1: storage.type.class.api.esb
+      push:
+        - meta_scope: meta.api-definition.esb
+        - match: '[a-zA-Z0-9]+'
+          scope: entity.name.class.api.esb
+        - match: '(?=\()'
+          push:
+            - meta_content_scope: meta.api.context.esb
+            - match: '\)'
+              scope: punctuation.definition.context.end.esb
+              pop: true
+            - match: '\('
+              scope: punctuation.definition.context.begin.esb
+            - include: url
+        - match: '(?={)'
+          pop: true
+    - match: '{'
+      scope: punctuation.section.api.begin.esb
+      push:
+        - meta_content_scope: meta.api.esb
+        - include: resource
+        - match: '}'
+          scope: punctuation.section.api.end.esb
+          pop: true
+            
+  
+  uri:
+    - match: '(\{)([a-zA-Z0-9]+)(\})'
+      captures:
+        1: punctuation.definition.variable.begin.esb
+        2: variable.parameter.uri.esb
+        3: punctuation.definition.variable.end.esb
+    - include: url
+  
+  url:
+    - match: '/'
+      scope: punctuation.separator.context.esb
+    - match: '[a-zA-Z0-9]+'
+      scope: variable.parameter.context.esb
+  
+  
+  
+  xpath:
+    - match: (?<=select\=\")|(?<=when test\=\")|(?<=xpath\=\")|(?<=expression=\")|(?<=value=\"{)
+      push:
+        - meta_scope: meta.string.xpath.esb
+        - include: xpath_continue
+    - match: '(\$)([a-zA-Z0-9][a-zA-Z0-9\-_]*)'
+      captures:
+        1: keyword.operator.reference.esb
+        2: support.class.param.esb
+      push:
+        - meta_scope: meta.string.xpath.esb
+        - include: xpath_continue
+          
+  xpath_continue:
+    - match: '(?=}?\")'
+      pop: true
+    - match: (\$)(body|ctx|trp)(:)?
+      captures:
+        1: keyword.operator.reference.esb
+        2: variable.language.xpath.esb
+        3: punctuation.separator.xpath.esb
+    - match: '(\$)([a-zA-Z0-9][a-zA-Z0-9\-_]*)'
+      captures:
+        1: keyword.operator.reference.esb
+        2: support.class.param.esb
+    - match: '(fn)(:)'
+      captures:
+        1: storage.type.function.xpath.esb
+        2: punctuation.separator.xpath.esb
+    - match: \b(or|and|xor)\b
+      scope: keyword.operator.compare.xpath.esb
+    - match: \$
+      scope: keyword.operator.reference.esb
+    - match: '/'
+      scope: punctuation.accessor.xpath.esb
+    - match: '@'
+      scope: keyword.operator.attribute.xpath.esb
+    - match: ':'
+      scope: punctuation.separator.namespace.xpath.esb
+    - match: \.
+      scope: punctuation.accessor.xpath.esb
+    - include: single-quoted-string
+    - match: \*
+      scope: keyword.operator.wildcard.xpath.esb
+    - match: \=
+      scope: keyword.operator.equality.xpath.esb
+    - match: \b[0-9]+\b
+      scope: constant.numeric.integer.xpath.esb
+    - match: \[
+      scope: punctuation.definition.qualifier.begin.xpath.esb
+      push:
+        - meta_content_scope: meta.qualifier.xpath.esb
+        - match: \]
+          scope: punctuation.definition.qualifier.end.xpath.esb
+          pop: true
+        - include: xpath_continue
+    - match: (number|abs|ceiling|floor|round|string|compare|concat|string\-join|substring|string-length|upper\-case|lower\-case|escape\-uri|contains|starts\-with|endw\-with|substring\-before|substring\-after|matches|replace|boolean|not|true|false|dateTime|name|root|index\-of|remove|empty|exists|reverse|subsequence|count|avg|max|min|sum|id|position|last|get\-property|json\-eval)(?=\()
+      scope: meta.function-call.name.xpath.esb
+      push:
+        - meta_content_scope: meta.function-call.xpath.esb
+        - match: \)
+          scope: punctuation.definition.arguments.end.xpath.esb
+          pop: true
+        - match: \(
+          scope: punctuation.definition.arguments.begin.xpath.esb
+          push:
+            - meta_content_scope: meta.function-call.arguments.xpath.esb
+            - match: '(?=\))'
+              pop: true
+            - match: ','
+              scope: punctuation.separator.arguments.xpath.esb
+            - include: xpath_continue
+    - match: '[a-zA-Z0-9][a-zA-Z0-9\-_]*'
+      scope: variable.parameter.xpath.esb

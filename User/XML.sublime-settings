@@ -1,0 +1,13 @@
+{
+	"extensions":
+	[
+		"sublime-snippet",
+		"tmPreferences",
+		"tmTheme",
+		"xsd",
+		"xslt",
+		"xml",
+		"dbs"
+	],
+	"tab_size": 2
+}

@@ -1,0 +1,18 @@
+<snippet>
+	<content><![CDATA[
+<xsl:template name="nilElement">
+	<xsl:param name="value" />
+	<xsl:choose>
+		<xsl:when test="string(\$value)">
+			<xsl:value-of select="\$value" />
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:attribute name="xsi:nil" namespace="http://www.w3.org/2001/XMLSchema-instance">true</xsl:attribute>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>nil</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>text.xml,source.wso2</scope>
+</snippet>

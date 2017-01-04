@@ -1,0 +1,19 @@
+<snippet>
+	<content><![CDATA[
+<dblookup>
+	<connection>
+		<pool>
+			<dsName>jdbc/${1:db name}</dsName>
+		</pool>
+	</connection>
+	<statement>
+		<sql>${2:SQL Statement}</sql>
+		<parameter expression="${3:param expression}" type="${4:STRING}"/>
+		<result name="${5:result}" column="${6:column}"/>
+	</statement>
+</dblookup>]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>dbl</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>text.xml,source.wso2</scope>
+</snippet>

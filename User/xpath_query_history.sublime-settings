@@ -1,0 +1,13 @@
+{
+	"history":
+	[
+		[
+			"/esbOrder/payment/",
+			"global"
+		],
+		[
+			"/response/data/priceMenuItems/priceMenuItem[price/@open='true']",
+			"global"
+		]
+	]
+}

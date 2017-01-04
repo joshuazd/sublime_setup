@@ -1,0 +1,15 @@
+<snippet>
+	<content><![CDATA[
+<filter xpath="${1:xpath expression}">
+	<then>
+		$2
+	</then>
+	<else>
+		$3
+	</else>
+</filter>]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>fil</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>text.xml,source.wso2</scope>
+</snippet>

@@ -1,0 +1,11 @@
+<snippet>
+	<content><![CDATA[
+<api xmlns="http://ws.apache.org/ns/synapse" name="${1:api_name}" context="/${2:context}">
+	<resource methods="${3:method}">
+	</resource>
+</api>]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>api-s</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>text.xml,source.wso2</scope>
+</snippet>

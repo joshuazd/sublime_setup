@@ -1,0 +1,8 @@
+{
+	"scope": "source.wso2, source.wso2 punctuation.definition.tag.begin",
+	
+	"completions":
+	[
+		{ "trigger": "call\tcall-template", "contents": "call-template"}
+	]
+}

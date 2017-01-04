@@ -1,0 +1,11 @@
+<snippet>
+	<content><![CDATA[
+<ns0:${1:item_name}>
+	$2
+</ns0:${1:item_name}>
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>xs</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>text.xml,source.wso2</scope>
+</snippet>

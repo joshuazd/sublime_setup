@@ -1,0 +1,12 @@
+<snippet>
+	<content><![CDATA[
+<send>
+	<endpoint>
+		<address uri="${1:address}" format="${2:soap11}"/>
+	</endpoint>
+</send>]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>s</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>text.xml,source.wso2</scope>
+</snippet>

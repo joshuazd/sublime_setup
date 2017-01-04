@@ -1,0 +1,8 @@
+{
+	"tag_scope_exclude": {
+		"xml": ["string", "comment"],
+        "xhtml": ["string", "comment"],
+        "html": ["string", "comment"],
+        "cfml": ["string", "comment"]
+    },
+}

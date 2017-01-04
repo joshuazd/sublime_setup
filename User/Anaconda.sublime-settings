@@ -1,0 +1,9 @@
+{
+	"anaconda_linting": true,
+	"anaconda_gutter_theme": "basic",
+	"anaconda_linter_mark_style": "none",
+	"anaconda_linter_underlines": true,
+	"pep8_max_line_length": 99,
+    "complete_parameters": true,
+    "complete_all_parameters": false,
+}

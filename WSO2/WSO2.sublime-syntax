@@ -1,0 +1,382 @@
+%YAML 1.2
+---
+name: WSO2
+file_extensions:
+  - xml
+  - xsd
+  - xslt
+  - tld
+  - dtml
+  - rss
+  - opml
+  - svg
+first_line_match: '^<\?xml '
+scope: source.wso2
+variables:
+  # This is the full XML Name production, but should not be used where namespaces
+  # are possible. Those locations should use a qualified_name.
+  name: '[[:alpha:]:_][[:alnum:]:_.-]*'
+  # This is the form that allows a namespace prefix (ns:) followed by a local
+  # name. The captures are:
+  #  1: namespace prefix name
+  #  2: namespace prefix colon
+  #  3: local tag name
+  qualified_name: '(?:([[:alpha:]_][[:alnum:]_.-]*)(:))?([[:alpha:]_][[:alnum:]_.-]*)'
+  name_end: '[ >(/>)]'
+
+contexts:
+  main:
+    - match: (?<=<sql>)
+      push: Packages/SQL/SQL.sublime-syntax
+      with_prototype:
+        - match: (?=</sql>)
+          pop: true
+    - match: '(?<=\<script language\=\"js\">)'
+      push:
+        - meta_scope: meta.script.js.wso2
+        - match: '(<!\[CDATA\[\s*)?'
+          scope: punctuation.definition.string.begin.wso2
+          push: Packages/JavaScript/JavaScript.sublime-syntax
+          with_prototype:
+            - match: '(\s*\]\]\>)?(?=<\/)'
+              scope: punctuation.definition.string.end.wso2
+              pop: true
+      with_prototype:
+        - match: '(?=</script>)'
+          pop: true
+        
+    # - match: '(<\?)\s*({{qualified_name}})'
+    #   captures:
+    #     1: punctuation.definition.tag.begin.wso2
+    #     2: entity.name.tag.wso2
+    #   push:
+    #     - meta_scope: meta.tag.preprocessor.wso2
+    #     - match: \?>
+    #       scope: punctuation.definition.tag.end.wso2
+    #       pop: true
+    #     - match: '\s+{{qualified_name}}(=)?'
+    #       captures:
+    #         1: entity.other.attribute-name.namespace.wso2
+    #         2: entity.other.attribute-name.wso2 punctuation.separator.namespace.wso2
+    #         3: entity.other.attribute-name.localname.wso2
+    #         4: punctuation.separator.key-value.wso2
+    #     - include: double-quoted-string
+    #     - include: single-quoted-string
+    - match: '(<!)(DOCTYPE)(?:\s+({{name}}))?'
+      captures:
+        1: punctuation.definition.tag.begin.wso2
+        2: keyword.doctype.wso2
+        3: variable.documentroot.wso2
+      push:
+        - meta_scope: meta.tag.sgml.doctype.wso2
+        - match: \s*(>)
+          captures:
+            1: punctuation.definition.tag.end.wso2
+          pop: true
+        - include: internal-subset
+    - match: '<!--'
+      scope: punctuation.definition.comment.begin.wso2
+      push:
+        - meta_scope: comment.block.wso2
+        - match: '-->'
+          scope: punctuation.definition.comment.end.wso2
+          pop: true
+    - match: '(<\/?)'
+      scope: punctuation.definition.tag.begin.wso2
+      push:
+        - meta_scope: meta.tag.wso2
+        - match: /?>
+          scope: punctuation.definition.tag.end.wso2
+          pop: true
+        - include: expressions
+        - include: tag-stuff
+    # - match: '(</?){{qualified_name}}([^/>\s]*)'
+    #   captures:
+    #     1: punctuation.definition.tag.begin.wso2
+    #     2: entity.name.tag.namespace.wso2
+    #     3: entity.name.tag.wso2 punctuation.separator.namespace.wso2
+    #     4: entity.name.tag.localname.wso2
+    #     5: invalid.illegal.bad-tag-name.wso2
+    #   push:
+    #     - meta_scope: meta.tag.wso2
+    #     - match: /?>
+    #       scope: punctuation.definition.tag.end.wso2
+    #       pop: true
+    #     - include: tag-stuff
+    - match: '(</?)([[:digit:].-][[:alnum:]:_.-]*)'
+      captures:
+        1: punctuation.definition.tag.begin.wso2
+        2: invalid.illegal.bad-tag-name.wso2
+      push:
+        - meta_scope: meta.tag.wso2
+        - match: /?>
+          scope: punctuation.definition.tag.end.wso2
+          pop: true
+        - include: tag-stuff
+    - include: entity
+    - match: '<!\[CDATA\['
+      scope: punctuation.definition.string.begin.wso2
+      push:
+        - meta_scope: string.unquoted.cdata.wso2
+        - match: ']]>'
+          scope: punctuation.definition.string.end.wso2
+          pop: true
+    - include: should-be-entity
+  should-be-entity:
+    - match: '&'
+      scope: invalid.illegal.bad-ampersand.wso2
+    - match: '<'
+      scope: invalid.illegal.missing-entity.wso2
+    - match: '>'
+      scope: invalid.illegal.missing-entity.wso2
+  double-quoted-string:
+    - match: '"'
+      scope: punctuation.definition.string.begin.wso2
+      push:
+        - meta_scope: string.quoted.double.wso2
+        - match: '"'
+          scope: punctuation.definition.string.end.wso2
+          pop: true
+        - include: entity
+        - include: should-be-entity
+        - include: xpath
+  entity:
+    - match: '(&)(?:{{name}}|#[0-9]+|#x\h+)(;)'
+      scope: constant.character.entity.wso2
+      captures:
+        1: punctuation.definition.constant.wso2
+        2: punctuation.definition.constant.wso2
+  internal-subset:
+    - match: \[
+      scope: punctuation.definition.constant.wso2
+      push:
+        - meta_scope: meta.internalsubset.wso2
+        - match: \]
+          pop: true
+        - include: entity-decl
+        - include: element-decl
+        - include: attlist-decl
+        - include: notation-decl
+        - include: parameter-entity
+  entity-decl:
+    - match: '(<!)(ENTITY)\s+(%\s+)?({{name}})(\s+(?:SYSTEM|PUBLIC)\s+)?'
+      captures:
+        1: punctuation.definition.tag.begin.wso2
+        2: keyword.entity.wso2
+        3: punctuation.definition.entity.wso2
+        4: variable.entity.wso2
+        5: keyword.entitytype.wso2
+      push:
+        - match: '>'
+          scope: punctuation.definition.tag.end.wso2
+          pop: true
+        - include: double-quoted-string
+        - include: single-quoted-string
+  element-decl:
+    - match: '(<!)(ELEMENT)\s+({{name}})\s+'
+      captures:
+        1: punctuation.definition.tag.begin.wso2
+        2: keyword.element.wso2
+        3: variable.element.wso2
+      push:
+        - match: '>'
+          scope: punctuation.definition.tag.end.wso2
+          pop: true
+        - match: '\b(EMPTY|ANY)\b'
+          scope: constant.other.wso2
+        - include: element-parens
+  element-parens:
+    - match: \(
+      scope: punctuation.definition.group.wso2
+      push:
+        - match: (\))([*?+])?
+          captures:
+            1: punctuation.definition.group.wso2
+            2: keyword.operator.wso2
+          pop: true
+        - match: '#PCDATA'
+          scope: constant.other.wso2
+        - match: '[*?+]'
+          scope: keyword.operator.wso2
+        - match: '[,|]'
+          scope: punctuation.separator.wso2
+        - include: element-parens
+  attlist-decl:
+    - match: '(<!)(ATTLIST)\s+({{name}})\s+({{name}})'
+      captures:
+        1: punctuation.definition.tag.begin.wso2
+        2: keyword.attlist.wso2
+        3: variable.element.wso2
+        4: variable.attribute-name.wso2
+      push:
+        - match: '>'
+          scope: punctuation.definition.tag.end.wso2
+          pop: true
+        - include: double-quoted-string
+        - include: single-quoted-string
+  notation-decl:
+    - match: '(<!)(NOTATION)\s+({{name}})'
+      captures:
+        1: punctuation.definition.tag.begin.wso2
+        2: keyword.notation.wso2
+        3: variable.notation.wso2
+      push:
+        - match: '>'
+          scope: punctuation.definition.tag.end.wso2
+          pop: true
+        - include: double-quoted-string
+        - include: single-quoted-string
+  parameter-entity:
+    - match: '(%){{name}}(;)'
+      scope: constant.character.parameter-entity.wso2
+      captures:
+        1: punctuation.definition.constant.wso2
+        2: punctuation.definition.constant.wso2
+  single-quoted-string:
+    - match: "'"
+      scope: punctuation.definition.string.begin.wso2
+      push:
+        - meta_scope: string.quoted.single.wso2
+        - match: "'"
+          scope: punctuation.definition.string.end.wso2
+          pop: true
+        - include: entity
+        - include: should-be-entity
+  tag-stuff:
+    - match: '(?:\s+|^){{qualified_name}}\s*(=)'
+      captures:
+        1: entity.other.attribute-name.namespace.wso2
+        2: entity.other.attribute-name.wso2 punctuation.separator.namespace.wso2
+        3: entity.other.attribute-name.localname.wso2
+        4: punctuation.separator.key-value.wso2
+    - match: '(?:\s+|^)([[:alnum:]:_.-]+)\s*(=)'
+      captures:
+        1: invalid.illegal.bad-attribute-name.wso2
+        2: punctuation.separator.key-value.wso2
+    - include: double-quoted-string
+    - include: single-quoted-string
+  expressions:
+    - match: ([a-zA-Z][0-9a-zA-Z\-]*)(:)
+      captures:
+        1: entity.name.tag.namespace.wso2
+        2: entity.name.tag.wso2 punctuation.separator.namespace.wso2
+    - match: (call\-template|validate|makefault|log)(?={{name_end}})
+      scope: entity.name.tag.wso2 meta.function-call.name.wso2
+    - match: (db(lookup|report))(?={{name_end}})
+      scope: entity.name.tag.wso2 support.class.wso2
+    - match: (send|respond|drop|store|call)(?={{name_end}})
+      scope: entity.name.tag.wso2 keyword.control.wso2
+    - match: ((in|out|fault)?(S|s)equence)(?={{name_end}})
+      scope: entity.name.tag.wso2 support.class.sequence.wso2
+    - match: complexType(?={{name_end}})
+      scope: entity.name.tag.wso2 support.class.type.wso2
+    - match: payloadFactory(?={{name_end}})
+      scope: entity.name.tag.wso2 storage.type.payload.wso2
+    - match: resource(?={{name_end}})
+      scope: entity.name.tag.wso2 storage.class.resource.wso2
+    - match: api(?={{name_end}})
+      scope: entity.name.tag.wso2 entity.name.section.wso2
+    - match: (header|property|attribute|reason|detail)(?={{name_end}})
+      scope: entity.name.tag.wso2 constant.language.wso2
+    - match: (endpoint|address|http)(?={{name_end}})
+      scope: entity.name.tag.wso2 support.constant.endpoint.wso2
+    - match: (schema|xslt|enrich|value\-of)(?={{name_end}})
+      scope: entity.name.tag.wso2 keyword.operator.wso2
+    - match: on\-fail(?={{name_end}})
+      scope: entity.name.tag.wso2 keyword.control.on-fail.wso2
+    - match: (filter|then|else|for\-each|choose|when|otherwise)(?={{name_end}})
+      scope: entity.name.tag.wso2 keyword.control.flow.wso2
+    - match: (query|script)(?={{name_end}})
+      scope: entity.name.tag.wso2 support.function.builtin.wso2
+    - match: format(?={{name_end}})
+      scope: entity.name.tag.wso2 support.class.format.wso2
+    - match: (with\-param|param)(?={{name_end}})
+      scope: entity.name.tag.wso2 support.class.param.wso2
+    - match: (args)(?={{name_end}})
+      scope: entity.name.tag.wso2 variable.language.wso2
+    - match: arg(?={{name_end}})
+      scope: entity.name.tag.wso2 variable.parameter.wso2
+    - match: template(?={{name_end}})
+      scope: entity.name.tag.wso2 entity.name.function.wso2
+    - match: class(?={{name_end}})
+      scope: entity.name.tag.wso2 meta.function-call.arguments.wso2
+    - match: (source|target)(?={{name_end}})
+      scope: entity.name.tag.wso2 support.class.param.wso2
+    - match: (?<=ns0\:)[a-zA-Z][0-9a-zA-Z_\-]*(?={{name_end}})
+      scope: entity.name.tag.wso2 entity.name.identifier.wso2
+    - match: '[a-zA-Z][0-9a-zA-Z_\-]*'
+      scope: entity.name.tag.wso2
+  xpath:
+    - match: (?<=select\=\")|(?<=when test\=\")|(?<=xpath\=\")|(?<=expression=\")|(?<=value=\"{)
+      push:
+        - meta_scope: meta.string.xpath.wso2
+        - include: xpath_continue
+    - match: '(\$)([a-zA-Z0-9][a-zA-Z0-9\-_]*)'
+      captures:
+        1: keyword.operator.reference.wso2
+        2: support.class.param.wso2
+      push:
+        - meta_scope: meta.string.xpath.wso2
+        - include: xpath_continue
+          
+  xpath_continue:
+    - match: '(?=}?\")'
+      pop: true
+    - match: (\$)(body|ctx|trp)(:)?
+      captures:
+        1: keyword.operator.reference.wso2
+        2: variable.language.xpath.wso2
+        3: punctuation.separator.xpath.wso2
+    - match: '(\$)([a-zA-Z0-9][a-zA-Z0-9\-_]*)'
+      captures:
+        1: keyword.operator.reference.wso2
+        2: support.class.param.wso2
+    - match: '(fn)(:)'
+      captures:
+        1: storage.type.function.xpath.wso2
+        2: punctuation.separator.xpath.wso2
+    - match: \b(or|and|xor)\b
+      scope: keyword.operator.compare.xpath.wso2
+    - match: \$
+      scope: keyword.operator.reference.wso2
+    - match: '/'
+      scope: punctuation.accessor.xpath.wso2
+    - match: '@'
+      scope: keyword.operator.attribute.xpath.wso2
+    - match: ':'
+      scope: punctuation.separator.namespace.xpath.wso2
+    - match: \.
+      scope: punctuation.accessor.xpath.wso2
+    - include: single-quoted-string
+    - match: \*
+      scope: keyword.operator.wildcard.xpath.wso2
+    - match: \=
+      scope: keyword.operator.equality.xpath.wso2
+    - match: \b[0-9]+\b
+      scope: constant.numeric.integer.xpath.wso2
+    - match: \[
+      scope: punctuation.definition.qualifier.begin.xpath.wso2
+      push:
+        - meta_content_scope: meta.qualifier.xpath.wso2
+        - match: \]
+          scope: punctuation.definition.qualifier.end.xpath.wso2
+          pop: true
+        - include: xpath_continue
+    - match: (number|abs|ceiling|floor|round|string|compare|concat|string\-join|substring|string-length|upper\-case|lower\-case|escape\-uri|contains|starts\-with|endw\-with|substring\-before|substring\-after|matches|replace|boolean|not|true|false|dateTime|name|root|index\-of|remove|empty|exists|reverse|subsequence|count|avg|max|min|sum|id|position|last|get\-property|json\-eval)(?=\()
+      scope: meta.function-call.name.xpath.wso2
+      push:
+        - meta_content_scope: meta.function-call.xpath.wso2
+        - match: \)
+          scope: punctuation.definition.arguments.end.xpath.wso2
+          pop: true
+        - match: \(
+          scope: punctuation.definition.arguments.begin.xpath.wso2
+          push:
+            - meta_content_scope: meta.function-call.arguments.xpath.wso2
+            - match: '(?=\))'
+              pop: true
+            - match: ','
+              scope: punctuation.separator.arguments.xpath.wso2
+            - include: xpath_continue
+    - match: '[a-zA-Z0-9][a-zA-Z0-9\-_]*'
+      scope: variable.parameter.xpath.wso2

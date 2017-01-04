@@ -1,0 +1,55 @@
+%YAML 1.2
+---
+name: Log4j
+file_extensions:
+  - log
+scope: text.log4j
+
+contexts:
+  main:
+    - include: timestamp
+    - include: levels
+    - include: variables
+    - include: location
+    - include: message
+    
+  message:
+    - match: (?<=message\=).*(?=(, [a-zA-Z0-9\-]+\=)?)
+      scope: entity.type.message.log4j
+
+  location:
+    - match: ([A-Za-z][A-Za-z0-9]+)(:)([0-9]+)
+      captures:
+        1: entity.name.class.log4j
+        2: punctuation.accessor.log4j
+        3: constant.numeric.line.log4j
+  variables:
+    - match: (?<= )([a-zA-Z0-9\-]+)(\=)
+      captures:
+        1: variable.parameter.log4j
+        2: punctuation.definition.parameter.log4j
+  
+  timestamp:
+    - match: (?=\d{4}\-[0-1][0-9]\-[0-3][0-9] [0-1][0-9]:[0-6][0-9]:[0-6][0-9](,\d{3})?)
+      push:
+        - meta_scope: meta.timestamp.log4j
+        - match: \b\d+\b
+          scope: constant.numeric.timestamp.log4j
+        - match: \-|:|,
+          scope: punctuation.separator.timestamp.log4j
+        - match: (?<=[0-9]) (?=[0-1])
+        - match: '.'
+          pop: true
+
+  levels:
+    - match: 'INFO'
+      scope: keyword.log_level.info.log4j
+    - match: 'WARN'
+      scope: keyword.log_level.warn.log4j
+    - match: 'ERROR'
+      scope: keyword.log_level.error.log4j
+    - match: 'DEBUG'
+      scope: keyword.log_level.debug.log4j
+        
+        
+      
