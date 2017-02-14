@@ -9,11 +9,9 @@
         runs in a ST3 installation equal to or newer than build 3070, it
         can be configured to show tooltips for documentation and signatures.
 
-        The options below set how the tooltip is shown. Set the theme
-        as dark if you are using a dark theme or light if you are using
-        a light one.
+        The options below set how the tooltip looks.
     */
-    "anaconda_tooltip_theme": "dark",  // possible options: "light" or "dark"
+    "anaconda_tooltip_theme": "popup",
 
     /*
         If you set the following option as true, anaconda will display the
@@ -305,7 +303,7 @@
 
         **** WARNING ****
 
-        - If you set this value as true, PyFlakes and pep8 will not bet used.
+        - If you set this value as true, PyFlakes and pep8 will not be used.
         - PyLint does *NOT* support linting buffers that are not already saved in
           the file system.
 
@@ -605,6 +603,11 @@
     "test_method_delimeter": ".",
 
     /*
+        Whether to include full path of the test file/method.
+    */
+    "test_include_full_path": true,
+
+    /*
         Uncomment the line below to enable filepath-based test runner
         patterns like those required for py.test.
     */
@@ -643,3 +646,5 @@
     */
     "auto_unload_conflictive_plugins": true
 }
+
+// vim: set ft=javascript:

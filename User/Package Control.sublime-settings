@@ -5,6 +5,7 @@
 	],
 	"installed_packages":
 	[
+		"A File Icon",
 		"Advanced CSV",
 		"All Autocomplete",
 		"Anaconda",
@@ -35,6 +36,7 @@
 		"Material Theme",
 		"Oracle PL SQL",
 		"Package Control",
+		"PackageDev",
 		"PackageResourceViewer",
 		"Python Improved",
 		"Python PEP8 Autoformat",
@@ -57,7 +59,7 @@
 		"Theme - Seti Monokai",
 		"Themr",
 		"TrailingSpaces",
-		"xpath",
-		"zz File Icons"
+		"xml2json",
+		"xpath"
 	]
 }

@@ -34,7 +34,7 @@ contexts:
     - match: '(?<=\<script language\=\"js\">)'
       push:
         - meta_scope: meta.script.js.wso2
-        - match: '(<!\[CDATA\[\s*)?'
+        - match: '(\s*<!\[CDATA\[\s*)?'
           scope: punctuation.definition.string.begin.wso2
           push: Packages/JavaScript/JavaScript.sublime-syntax
           with_prototype:
@@ -256,14 +256,18 @@ contexts:
     - include: double-quoted-string
     - include: single-quoted-string
   expressions:
+    - match: (ns0)(:)
+      captures:
+        1: entity.name.tag.namespace.wso2 storage.type.database.wso2
+        2: entity.name.tag.wso2 punctuation.separator.namespace.wso2
     - match: ([a-zA-Z][0-9a-zA-Z\-]*)(:)
       captures:
         1: entity.name.tag.namespace.wso2
         2: entity.name.tag.wso2 punctuation.separator.namespace.wso2
-    - match: (call\-template|validate|makefault|log)(?={{name_end}})
+    - match: (call\-template|validate|makefault|log|call\-query)(?={{name_end}})
       scope: entity.name.tag.wso2 meta.function-call.name.wso2
     - match: (db(lookup|report))(?={{name_end}})
-      scope: entity.name.tag.wso2 support.class.wso2
+      scope: entity.name.tag.wso2 storage.type.database.wso2
     - match: (send|respond|drop|store|call)(?={{name_end}})
       scope: entity.name.tag.wso2 keyword.control.wso2
     - match: ((in|out|fault)?(S|s)equence)(?={{name_end}})
@@ -272,8 +276,16 @@ contexts:
       scope: entity.name.tag.wso2 support.class.type.wso2
     - match: payloadFactory(?={{name_end}})
       scope: entity.name.tag.wso2 storage.type.payload.wso2
-    - match: resource(?={{name_end}})
-      scope: entity.name.tag.wso2 storage.class.resource.wso2
+    - match: trigger(?={{name_end}})
+      scope: entity.name.tag.wso2 storage.type.trigger.wso2
+    - match: (resource|operation|query|stylesheet|in|out)(?={{name_end}})
+      scope: entity.name.tag.wso2 storage.class.wso2
+    - match: connection(?={{name_end}})
+      scope: entity.name.tag.wso2 storage.class.connection.wso2
+    - match: statement(?={{name_end}})
+      scope: entity.name.tag.wso2 storage.class.statement.wso2
+    - match: task(?={{name_end}})
+      scope: entity.name.tag.wso2 storage.class.task.wso2
     - match: api(?={{name_end}})
       scope: entity.name.tag.wso2 entity.name.section.wso2
     - match: (header|property|attribute|reason|detail)(?={{name_end}})
@@ -286,11 +298,11 @@ contexts:
       scope: entity.name.tag.wso2 keyword.control.on-fail.wso2
     - match: (filter|then|else|for\-each|choose|when|otherwise)(?={{name_end}})
       scope: entity.name.tag.wso2 keyword.control.flow.wso2
-    - match: (query|script)(?={{name_end}})
+    - match: (script|sql)(?={{name_end}})
       scope: entity.name.tag.wso2 support.function.builtin.wso2
     - match: format(?={{name_end}})
       scope: entity.name.tag.wso2 support.class.format.wso2
-    - match: (with\-param|param)(?={{name_end}})
+    - match: (with\-param|param|dsName|parameter|result)(?={{name_end}})
       scope: entity.name.tag.wso2 support.class.param.wso2
     - match: (args)(?={{name_end}})
       scope: entity.name.tag.wso2 variable.language.wso2
@@ -352,6 +364,8 @@ contexts:
       scope: keyword.operator.wildcard.xpath.wso2
     - match: \=
       scope: keyword.operator.equality.xpath.wso2
+    - match: '!\='
+      scope: keyword.operator.equality.xpath.wso2
     - match: \b[0-9]+\b
       scope: constant.numeric.integer.xpath.wso2
     - match: \[
@@ -362,7 +376,7 @@ contexts:
           scope: punctuation.definition.qualifier.end.xpath.wso2
           pop: true
         - include: xpath_continue
-    - match: (number|abs|ceiling|floor|round|string|compare|concat|string\-join|substring|string-length|upper\-case|lower\-case|escape\-uri|contains|starts\-with|endw\-with|substring\-before|substring\-after|matches|replace|boolean|not|true|false|dateTime|name|root|index\-of|remove|empty|exists|reverse|subsequence|count|avg|max|min|sum|id|position|last|get\-property|json\-eval)(?=\()
+    - match: (number|abs|ceiling|floor|round|string|compare|concat|string\-join|substring|string-length|upper\-case|lower\-case|escape\-uri|contains|starts\-with|endw\-with|substring\-before|substring\-after|matches|replace|boolean|not|true|false|dateTime|name|root|index\-of|remove|empty|exists|reverse|subsequence|count|avg|max|min|sum|id|position|last|get\-property|json\-eval|ends\-with)(?=\()
       scope: meta.function-call.name.xpath.wso2
       push:
         - meta_content_scope: meta.function-call.xpath.wso2

@@ -150,6 +150,7 @@ contexts:
             - include: object-types-inherited
             - include: comments
         - match: "{"
+          scope: punctuation.section.class.begin.java
           push:
             - meta_scope: meta.class.body.java
             - match: "(?=})"
@@ -261,7 +262,10 @@ contexts:
     - match: '(?=\w.*\s+)(?=[^=;]+\()'
       push:
         - meta_scope: meta.method.java
-        - match: "}|(?=;)"
+        - match: "}"
+          scope: punctuation.section.method.end.java
+          pop: true
+        - match: "(?=;)"
           pop: true
         - include: storage-modifiers
         - match: (\w+)\s*\(
@@ -280,6 +284,7 @@ contexts:
             - include: all-types
         - include: throws
         - match: "{"
+          scope: punctuation.section.method.begin.java
           push:
             - meta_scope: meta.method.body.java
             - match: "(?=})"

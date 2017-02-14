@@ -22,7 +22,7 @@ variables:
   #  2: namespace prefix colon
   #  3: local tag name
   qualified_name: '(?:([[:alpha:]_][[:alnum:]_.-]*)(:))?([[:alpha:]_][[:alnum:]_.-]*)'
-  tag_extend: '[a-zA-Z0-9_ \-\="\/\.:]'
+  tag_extend: '[a-zA-Z0-9_ \-\="\/\.:\s]'
 
 contexts:
   main:
@@ -229,48 +229,25 @@ contexts:
     - include: single-quoted-string
     
   wso2:
-    - match: '(?=<(api) {{tag_extend}}*>)'
+    - match: '(?=<(api){{tag_extend}}*>?)'
       push: Packages/WSO2/WSO2.sublime-syntax
-      with_prototype:
-        - match: (?<=</api>)
-          pop: true
-    - match: '(?=<(sequence) {{tag_extend}}*>)'
+    - match: '(?=<(sequence){{tag_extend}}*>?)'
       push: Packages/WSO2/WSO2.sublime-syntax
-      with_prototype:
-        - match: (?<=</sequence>)
-          pop: true
-    - match: '(?=<(localEntry) {{tag_extend}}*>)'
+    - match: '(?=<(localEntry){{tag_extend}}*>?)'
       push: Packages/WSO2/WSO2.sublime-syntax
-      with_prototype:
-        - match: (?<=</localEntry>)
-          pop: true
-    - match: '(?=<(template) {{tag_extend}}*>)'
+    - match: '(?=<(template){{tag_extend}}*>?)'
       push: Packages/WSO2/WSO2.sublime-syntax
-      with_prototype:
-        - match: (?<=</template>)
-          pop: true
-    - match: '(?=<(query) {{tag_extend}}*>)'
+    - match: '(?=<(data){{tag_extend}}*>?)'
       push: Packages/WSO2/WSO2.sublime-syntax
-      with_prototype:
-        - match: (?<=</query>)
-          pop: true
-    - match: '(?=<(operation) {{tag_extend}}*>)'
+    - match: '(?=<(operation){{tag_extend}}*>?)'
       push: Packages/WSO2/WSO2.sublime-syntax
-      with_prototype:
-        - match: (?<=</operation>)
-          pop: true
-    - match: '(?=<(endpoint) {{tag_extend}}*>)'
+    - match: '(?=<(endpoint){{tag_extend}}*>?)'
       push: Packages/WSO2/WSO2.sublime-syntax
-      with_prototype:
-        - match: (?<=</endpoint>)
-          pop: true
-    - match: '(?=<(proxy) {{tag_extend}}*>)'
+    - match: '(?=<(proxy){{tag_extend}}*>?)'
       push: Packages/WSO2/WSO2.sublime-syntax
-      with_prototype:
-        - match: (?<=</proxy>)
-          pop: true
-    - match: '(?=<(api|localEntry|template|query|operation) {{tag_extend}}*>)'
+    - match: '(?=<(task){{tag_extend}}*>?)'
       push: Packages/WSO2/WSO2.sublime-syntax
-      with_prototype:
-        - match: ((?<=</api>)|(?<=</localEntry>)|(?<=</template>)|(?<=</query>)|(?<=</operation>))
-          pop: true
+    - match: '(?=<(messageProcessor){{tag_extend}}*>?)'
+      push: Packages/WSO2/WSO2.sublime-syntax
+    - match: '(?=<(messageStore){{tag_extend}}*>?)'
+      push: Packages/WSO2/WSO2.sublime-syntax
