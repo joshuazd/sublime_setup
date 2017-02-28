@@ -1,0 +1,11 @@
+<snippet>
+	<content><![CDATA[
+<endpoint xmlns="http://ws.apache.org/ns/synapse" name="conf/$1">
+	<http method="${2:get}" uri-template="$3"/>
+</endpoint>
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>end</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.wso2</scope>
+</snippet>
