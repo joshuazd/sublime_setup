@@ -16,4 +16,6 @@
 		"clip_to_line": true },
 		"context": [{"key": "setting.command_mode"}]
 	},
+	{ "keys": ["ctrl+v"], "command": "paste_and_indent" },
+	{ "keys": ["ctrl+shift+v"], "command": "paste" }
 ]

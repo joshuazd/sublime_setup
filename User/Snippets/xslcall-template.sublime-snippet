@@ -1,0 +1,11 @@
+<snippet>
+	<content><![CDATA[
+<xsl:call-template name="nilElement">
+	<xsl:with-param name="value" select="$1" />
+</xsl:call-template>
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>xct</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.wso2</scope>
+</snippet>
