@@ -56,7 +56,6 @@
 		".settings",
 		"graphical-synapse-config"
 	],
-	"font_face": "Consolas",
 	"font_options":
 	[
 		"gdi",
