@@ -74,7 +74,8 @@
 		"Oracle PL SQL",
 		"Python Improved",
 		"SQLPlus",
-		"SublimeLinter-pep8"
+		"SublimeLinter-pep8",
+		"xpath"
 	],
 	"indent_guide_options":
 	[
@@ -115,5 +116,6 @@
 	"theme_sidebar_icon_saturation_md": true,
 	"trim_automatic_white_space": false,
 	"vintage_start_in_command_mode": true,
-	"word_wrap": true
+	"word_wrap": true,
+	"auto_close_tags": true
 }

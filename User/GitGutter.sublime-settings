@@ -1,4 +1,5 @@
 {
 	"ignore_whitespace": "eol",
-	"show_status": "none"
+	"show_status": "none",
+	"show_status_bar_text": false
 }

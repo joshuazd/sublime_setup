@@ -270,8 +270,8 @@ contexts:
       scope: entity.name.tag.wso2 storage.type.database.wso2
     - match: (send|respond|drop|store|call)(?={{name_end}})
       scope: entity.name.tag.wso2 keyword.control.wso2
-    - match: ((in|out|fault)?(S|s)equence)(?={{name_end}})
-      scope: entity.name.tag.wso2 support.class.sequence.wso2
+    # - match: ((in|out|fault)?(S|s)equence)(?={{name_end}})
+    #   scope: entity.name.tag.wso2 support.class.sequence.wso2
     - match: complexType(?={{name_end}})
       scope: entity.name.tag.wso2 support.class.type.wso2
     - match: payloadFactory(?={{name_end}})
@@ -319,7 +319,7 @@ contexts:
     - match: '[a-zA-Z][0-9a-zA-Z_\-]*'
       scope: entity.name.tag.wso2
   xpath:
-    - match: (?<=select\=\")|(?<=when test\=\")|(?<=xpath\=\")|(?<=expression=\")|(?<=value=\"{)
+    - match: (?<=select\=\")|(?<=filter source\=\")|(?<=when test\=\")|(?<=xpath\=\")|(?<=expression=\")|(?<=value=\"{)
       push:
         - meta_scope: meta.string.xpath.wso2
         - include: xpath_continue
@@ -376,7 +376,7 @@ contexts:
           scope: punctuation.definition.qualifier.end.xpath.wso2
           pop: true
         - include: xpath_continue
-    - match: (number|abs|ceiling|floor|round|string|compare|concat|string\-join|substring|string-length|upper\-case|lower\-case|escape\-uri|contains|starts\-with|endw\-with|substring\-before|substring\-after|matches|replace|boolean|not|true|false|dateTime|name|root|index\-of|remove|empty|exists|reverse|subsequence|count|avg|max|min|sum|id|position|last|get\-property|json\-eval|ends\-with|text)(?=\()
+    - match: (number|abs|ceiling|floor|round|string|compare|concat|string\-join|substring|string-length|upper\-case|lower\-case|escape\-uri|contains|starts\-with|endw\-with|substring\-before|substring\-after|matches|replace|boolean|not|true|false|dateTime|name|root|index\-of|remove|empty|exists|reverse|subsequence|count|avg|max|min|sum|id|position|last|get\-property|json\-eval|translate|ends\-with|text)(?=\()
       scope: meta.function-call.name.xpath.wso2
       push:
         - meta_content_scope: meta.function-call.xpath.wso2
