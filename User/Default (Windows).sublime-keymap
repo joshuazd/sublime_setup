@@ -17,5 +17,19 @@
 		"context": [{"key": "setting.command_mode"}]
 	},
 	{ "keys": ["ctrl+v"], "command": "paste_and_indent" },
-	{ "keys": ["ctrl+shift+v"], "command": "paste" }
+	{ "keys": ["ctrl+shift+v"], "command": "paste" },
+	{ "keys": ["z","c"], "command": "fold" ,
+		"context":
+		[
+			{ "key": "setting.command_mode", "operand": false},
+			{ "key": "setting.is_widget", "operand": false}
+		]
+	},
+	{ "keys": ["z","o"], "command": "unfold" ,
+		"context":
+		[
+			{ "key": "setting.command_mode", "operand": false},
+			{ "key": "setting.is_widget", "operand": false}
+		]
+	}
 ]

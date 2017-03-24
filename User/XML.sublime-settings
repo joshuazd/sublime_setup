@@ -9,5 +9,6 @@
 		"xml",
 		"dbs"
 	],
-	"tab_size": 2
+	"tab_size": 2,
+	"auto_close_tags": true
 }
