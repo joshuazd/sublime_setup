@@ -1,5 +1,6 @@
 {
 	"always_show_minimap_viewport": true,
+	"auto_close_tags": true,
 	"auto_complete_commit_on_tab": true,
 	"auto_complete_selector": "meta.tag - punctuation.definition.tag.begin, source - comment - string.quoted.double.block - string.quoted.single.block - string.unquoted.heredoc, text, source.wso2",
 	"auto_complete_triggers":
@@ -116,6 +117,5 @@
 	"theme_sidebar_icon_saturation_md": true,
 	"trim_automatic_white_space": false,
 	"vintage_start_in_command_mode": true,
-	"word_wrap": true,
-	"auto_close_tags": true
+	"word_wrap": true
 }
