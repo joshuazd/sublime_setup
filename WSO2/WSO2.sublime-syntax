@@ -35,11 +35,11 @@ contexts:
       push:
         - meta_scope: meta.script.js.wso2
         - match: '(\s*<!\[CDATA\[\s*)?'
-          scope: punctuation.definition.string.begin.wso2
+          scope: punctuation.definition.string.begin.xml
           push: Packages/JavaScript/JavaScript.sublime-syntax
           with_prototype:
             - match: '(\s*\]\]\>)?(?=<\/)'
-              scope: punctuation.definition.string.end.wso2
+              scope: punctuation.definition.string.end.xml
               pop: true
       with_prototype:
         - match: '(?=</script>)'
@@ -64,29 +64,29 @@ contexts:
     #     - include: single-quoted-string
     - match: '(<!)(DOCTYPE)(?:\s+({{name}}))?'
       captures:
-        1: punctuation.definition.tag.begin.wso2
-        2: keyword.doctype.wso2
-        3: variable.documentroot.wso2
+        1: punctuation.definition.tag.begin.xml
+        2: keyword.doctype.xml
+        3: variable.documentroot.xml
       push:
-        - meta_scope: meta.tag.sgml.doctype.wso2
+        - meta_scope: meta.tag.sgml.doctype.xml
         - match: \s*(>)
           captures:
-            1: punctuation.definition.tag.end.wso2
+            1: punctuation.definition.tag.end.xml
           pop: true
         - include: internal-subset
     - match: '<!--'
-      scope: punctuation.definition.comment.begin.wso2
+      scope: punctuation.definition.comment.begin.xml
       push:
-        - meta_scope: comment.block.wso2
+        - meta_scope: comment.block.xml
         - match: '-->'
-          scope: punctuation.definition.comment.end.wso2
+          scope: punctuation.definition.comment.end.xml
           pop: true
     - match: '(<\/?)'
-      scope: punctuation.definition.tag.begin.wso2
+      scope: punctuation.definition.tag.begin.xml
       push:
-        - meta_scope: meta.tag.wso2
+        - meta_scope: meta.tag.xml
         - match: /?>
-          scope: punctuation.definition.tag.end.wso2
+          scope: punctuation.definition.tag.end.xml
           pop: true
         - include: expressions
         - include: tag-stuff
@@ -105,52 +105,52 @@ contexts:
     #     - include: tag-stuff
     - match: '(</?)([[:digit:].-][[:alnum:]:_.-]*)'
       captures:
-        1: punctuation.definition.tag.begin.wso2
-        2: invalid.illegal.bad-tag-name.wso2
+        1: punctuation.definition.tag.begin.xml
+        2: invalid.illegal.bad-tag-name.xml
       push:
-        - meta_scope: meta.tag.wso2
+        - meta_scope: meta.tag.xml
         - match: /?>
-          scope: punctuation.definition.tag.end.wso2
+          scope: punctuation.definition.tag.end.xml
           pop: true
         - include: tag-stuff
     - include: entity
     - match: '<!\[CDATA\['
-      scope: punctuation.definition.string.begin.wso2
+      scope: punctuation.definition.string.begin.xml
       push:
-        - meta_scope: string.unquoted.cdata.wso2
+        - meta_scope: string.unquoted.cdata.xml
         - match: ']]>'
-          scope: punctuation.definition.string.end.wso2
+          scope: punctuation.definition.string.end.xml
           pop: true
     - include: should-be-entity
   should-be-entity:
     - match: '&'
-      scope: invalid.illegal.bad-ampersand.wso2
+      scope: invalid.illegal.bad-ampersand.xml
     - match: '<'
-      scope: invalid.illegal.missing-entity.wso2
+      scope: invalid.illegal.missing-entity.xml
     - match: '>'
-      scope: invalid.illegal.missing-entity.wso2
+      scope: invalid.illegal.missing-entity.xml
   double-quoted-string:
     - match: '"'
-      scope: punctuation.definition.string.begin.wso2
+      scope: punctuation.definition.string.begin.xml
       push:
-        - meta_scope: string.quoted.double.wso2
+        - meta_scope: string.quoted.double.xml
         - match: '"'
-          scope: punctuation.definition.string.end.wso2
+          scope: punctuation.definition.string.end.xml
           pop: true
         - include: entity
         - include: should-be-entity
         - include: xpath
   entity:
     - match: '(&)(?:{{name}}|#[0-9]+|#x\h+)(;)'
-      scope: constant.character.entity.wso2
+      scope: constant.character.entity.xml
       captures:
-        1: punctuation.definition.constant.wso2
-        2: punctuation.definition.constant.wso2
+        1: punctuation.definition.constant.xml
+        2: punctuation.definition.constant.xml
   internal-subset:
     - match: \[
-      scope: punctuation.definition.constant.wso2
+      scope: punctuation.definition.constant.xml
       push:
-        - meta_scope: meta.internalsubset.wso2
+        - meta_scope: meta.internalsubset.xml
         - match: \]
           pop: true
         - include: entity-decl
@@ -161,163 +161,163 @@ contexts:
   entity-decl:
     - match: '(<!)(ENTITY)\s+(%\s+)?({{name}})(\s+(?:SYSTEM|PUBLIC)\s+)?'
       captures:
-        1: punctuation.definition.tag.begin.wso2
-        2: keyword.entity.wso2
-        3: punctuation.definition.entity.wso2
-        4: variable.entity.wso2
-        5: keyword.entitytype.wso2
+        1: punctuation.definition.tag.begin.xml
+        2: keyword.entity.xml
+        3: punctuation.definition.entity.xml
+        4: variable.entity.xml
+        5: keyword.entitytype.xml
       push:
         - match: '>'
-          scope: punctuation.definition.tag.end.wso2
+          scope: punctuation.definition.tag.end.xml
           pop: true
         - include: double-quoted-string
         - include: single-quoted-string
   element-decl:
     - match: '(<!)(ELEMENT)\s+({{name}})\s+'
       captures:
-        1: punctuation.definition.tag.begin.wso2
-        2: keyword.element.wso2
-        3: variable.element.wso2
+        1: punctuation.definition.tag.begin.xml
+        2: keyword.element.xml
+        3: variable.element.xml
       push:
         - match: '>'
-          scope: punctuation.definition.tag.end.wso2
+          scope: punctuation.definition.tag.end.xml
           pop: true
         - match: '\b(EMPTY|ANY)\b'
-          scope: constant.other.wso2
+          scope: constant.other.xml
         - include: element-parens
   element-parens:
     - match: \(
-      scope: punctuation.definition.group.wso2
+      scope: punctuation.definition.group.xml
       push:
         - match: (\))([*?+])?
           captures:
-            1: punctuation.definition.group.wso2
-            2: keyword.operator.wso2
+            1: punctuation.definition.group.xml
+            2: keyword.operator.xml
           pop: true
         - match: '#PCDATA'
-          scope: constant.other.wso2
+          scope: constant.other.xml
         - match: '[*?+]'
-          scope: keyword.operator.wso2
+          scope: keyword.operator.xml
         - match: '[,|]'
-          scope: punctuation.separator.wso2
+          scope: punctuation.separator.xml
         - include: element-parens
   attlist-decl:
     - match: '(<!)(ATTLIST)\s+({{name}})\s+({{name}})'
       captures:
-        1: punctuation.definition.tag.begin.wso2
-        2: keyword.attlist.wso2
-        3: variable.element.wso2
-        4: variable.attribute-name.wso2
+        1: punctuation.definition.tag.begin.xml
+        2: keyword.attlist.xml
+        3: variable.element.xml
+        4: variable.attribute-name.xml
       push:
         - match: '>'
-          scope: punctuation.definition.tag.end.wso2
+          scope: punctuation.definition.tag.end.xml
           pop: true
         - include: double-quoted-string
         - include: single-quoted-string
   notation-decl:
     - match: '(<!)(NOTATION)\s+({{name}})'
       captures:
-        1: punctuation.definition.tag.begin.wso2
-        2: keyword.notation.wso2
-        3: variable.notation.wso2
+        1: punctuation.definition.tag.begin.xml
+        2: keyword.notation.xml
+        3: variable.notation.xml
       push:
         - match: '>'
-          scope: punctuation.definition.tag.end.wso2
+          scope: punctuation.definition.tag.end.xml
           pop: true
         - include: double-quoted-string
         - include: single-quoted-string
   parameter-entity:
     - match: '(%){{name}}(;)'
-      scope: constant.character.parameter-entity.wso2
+      scope: constant.character.parameter-entity.xml
       captures:
-        1: punctuation.definition.constant.wso2
-        2: punctuation.definition.constant.wso2
+        1: punctuation.definition.constant.xml
+        2: punctuation.definition.constant.xml
   single-quoted-string:
     - match: "'"
-      scope: punctuation.definition.string.begin.wso2
+      scope: punctuation.definition.string.begin.xml
       push:
-        - meta_scope: string.quoted.single.wso2
+        - meta_scope: string.quoted.single.xml
         - match: "'"
-          scope: punctuation.definition.string.end.wso2
+          scope: punctuation.definition.string.end.xml
           pop: true
         - include: entity
         - include: should-be-entity
   tag-stuff:
     - match: '(?:\s+|^){{qualified_name}}\s*(=)'
       captures:
-        1: entity.other.attribute-name.namespace.wso2
-        2: entity.other.attribute-name.wso2 punctuation.separator.namespace.wso2
-        3: entity.other.attribute-name.localname.wso2
-        4: punctuation.separator.key-value.wso2
+        1: entity.other.attribute-name.namespace.xml
+        2: entity.other.attribute-name.xml punctuation.separator.namespace.xml
+        3: entity.other.attribute-name.localname.xml
+        4: punctuation.separator.key-value.xml
     - match: '(?:\s+|^)([[:alnum:]:_.-]+)\s*(=)'
       captures:
-        1: invalid.illegal.bad-attribute-name.wso2
-        2: punctuation.separator.key-value.wso2
+        1: invalid.illegal.bad-attribute-name.xml
+        2: punctuation.separator.key-value.xml
     - include: double-quoted-string
     - include: single-quoted-string
   expressions:
     - match: (ns0)(:)
       captures:
-        1: entity.name.tag.namespace.wso2 storage.type.database.wso2
-        2: entity.name.tag.wso2 punctuation.separator.namespace.wso2
+        1: entity.name.tag.namespace.xml storage.type.database.wso2
+        2: entity.name.tag.xml punctuation.separator.namespace.xml
     - match: ([a-zA-Z][0-9a-zA-Z\-]*)(:)
       captures:
-        1: entity.name.tag.namespace.wso2
-        2: entity.name.tag.wso2 punctuation.separator.namespace.wso2
+        1: entity.name.tag.namespace.xml
+        2: entity.name.tag.xml punctuation.separator.namespace.xml
     - match: (call\-template|validate|makefault|log|call\-query)(?={{name_end}})
-      scope: entity.name.tag.wso2 meta.function-call.name.wso2
+      scope: entity.name.tag.xml meta.function-call.name.wso2
     - match: (db(lookup|report))(?={{name_end}})
-      scope: entity.name.tag.wso2 storage.type.database.wso2
+      scope: entity.name.tag.xml storage.type.database.wso2
     - match: (send|respond|drop|store|call)(?={{name_end}})
-      scope: entity.name.tag.wso2 keyword.control.wso2
+      scope: entity.name.tag.xml keyword.control.wso2
     # - match: ((in|out|fault)?(S|s)equence)(?={{name_end}})
-    #   scope: entity.name.tag.wso2 support.class.sequence.wso2
+    #   scope: entity.name.tag.xml support.class.sequence.wso2
     - match: complexType(?={{name_end}})
-      scope: entity.name.tag.wso2 support.class.type.wso2
+      scope: entity.name.tag.xml support.class.type.wso2
     - match: payloadFactory(?={{name_end}})
-      scope: entity.name.tag.wso2 storage.type.payload.wso2
+      scope: entity.name.tag.xml storage.type.payload.wso2
     - match: trigger(?={{name_end}})
-      scope: entity.name.tag.wso2 storage.type.trigger.wso2
+      scope: entity.name.tag.xml storage.type.trigger.wso2
     - match: (resource|operation|query|stylesheet|in|out)(?={{name_end}})
-      scope: entity.name.tag.wso2 storage.class.wso2
+      scope: entity.name.tag.xml storage.class.wso2
     - match: connection(?={{name_end}})
-      scope: entity.name.tag.wso2 storage.class.connection.wso2
+      scope: entity.name.tag.xml storage.class.connection.wso2
     - match: statement(?={{name_end}})
-      scope: entity.name.tag.wso2 storage.class.statement.wso2
+      scope: entity.name.tag.xml storage.class.statement.wso2
     - match: task(?={{name_end}})
-      scope: entity.name.tag.wso2 storage.class.task.wso2
+      scope: entity.name.tag.xml storage.class.task.wso2
     - match: api(?={{name_end}})
-      scope: entity.name.tag.wso2 entity.name.section.wso2
+      scope: entity.name.tag.xml entity.name.section.wso2
     - match: (header|property|attribute|reason|detail)(?={{name_end}})
-      scope: entity.name.tag.wso2 constant.language.wso2
+      scope: entity.name.tag.xml constant.language.wso2
     - match: (endpoint|address|http)(?={{name_end}})
-      scope: entity.name.tag.wso2 support.constant.endpoint.wso2
+      scope: entity.name.tag.xml support.constant.endpoint.wso2
     - match: (schema|xslt|enrich|value\-of)(?={{name_end}})
-      scope: entity.name.tag.wso2 keyword.operator.wso2
+      scope: entity.name.tag.xml keyword.operator.wso2
     - match: on\-fail(?={{name_end}})
-      scope: entity.name.tag.wso2 keyword.control.on-fail.wso2
+      scope: entity.name.tag.xml keyword.control.on-fail.wso2
     - match: (filter|then|else|for\-each|choose|when|otherwise)(?={{name_end}})
-      scope: entity.name.tag.wso2 keyword.control.flow.wso2
+      scope: entity.name.tag.xml keyword.control.flow.wso2
     - match: (script|sql)(?={{name_end}})
-      scope: entity.name.tag.wso2 support.function.builtin.wso2
+      scope: entity.name.tag.xml support.function.builtin.wso2
     - match: format(?={{name_end}})
-      scope: entity.name.tag.wso2 support.class.format.wso2
+      scope: entity.name.tag.xml support.class.format.wso2
     - match: (with\-param|param|dsName|parameter|result)(?={{name_end}})
-      scope: entity.name.tag.wso2 support.class.param.wso2
+      scope: entity.name.tag.xml support.class.param.wso2
     - match: (args)(?={{name_end}})
-      scope: entity.name.tag.wso2 variable.language.wso2
+      scope: entity.name.tag.xml variable.language.wso2
     - match: arg(?={{name_end}})
-      scope: entity.name.tag.wso2 variable.parameter.wso2
+      scope: entity.name.tag.xml variable.parameter.wso2
     - match: template(?={{name_end}})
-      scope: entity.name.tag.wso2 entity.name.function.wso2
+      scope: entity.name.tag.xml entity.name.function.wso2
     - match: class(?={{name_end}})
-      scope: entity.name.tag.wso2 meta.function-call.arguments.wso2
+      scope: entity.name.tag.xml meta.function-call.arguments.wso2
     - match: (source|target)(?={{name_end}})
-      scope: entity.name.tag.wso2 support.class.param.wso2
+      scope: entity.name.tag.xml support.class.param.wso2
     - match: (?<=ns0\:)[a-zA-Z][0-9a-zA-Z_\-]*(?={{name_end}})
-      scope: entity.name.tag.wso2 entity.name.identifier.wso2
+      scope: entity.name.tag.xml entity.name.identifier.wso2
     - match: '[a-zA-Z][0-9a-zA-Z_\-]*'
-      scope: entity.name.tag.wso2
+      scope: entity.name.tag.xml
   xpath:
     - match: (?<=select\=\")|(?<=filter source\=\")|(?<=when test\=\")|(?<=xpath\=\")|(?<=expression=\")|(?<=value=\"{)
       push:

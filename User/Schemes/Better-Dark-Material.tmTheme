@@ -36,7 +36,7 @@
 				<key>invisibles</key>
 				<string>#65737e</string>
 				<key>lineHighlight</key>
-				<string>#00000050</string>
+				<string>#00000020</string>
 				<key>popupCss</key>
 				<string><![CDATA[ html { background-color: #263238; color: #eeffff; padding: 16px; } a { color: #B2CCD6; line-height: 16px; } .error, .deleted { color: #FF5370; } .success, .inserted { color: #C3E88D; } .warning, .modified { color: #FFCB6B; } .type { color: #89DDFF; font-style: italic; } .param { color: #F78C6C; } .current { text-decoration: underline; } ]]></string>
 				<key>selection</key>
@@ -429,6 +429,41 @@ meta.structure</string>
 			</dict>
 			<dict>
 				<key>name</key>
+				<string>Class</string>
+				<key>scope</key>
+				<string>entity.name.section.markdown</string>
+				<key>settings</key>
+				<dict>
+					<key>fontStyle</key>
+					<string>bold</string>
+				</dict>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Markdown unnumbered list</string>
+				<key>scope</key>
+				<string>markup.list.unnumbered.markdown</string>
+				<key>settings</key>
+				<dict>
+					<key>foreground</key>
+					<string>#F78C6C</string>
+				</dict>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Markdown list_item</string>
+				<key>scope</key>
+				<string>punctuation.definition.list_item.markdown</string>
+				<key>settings</key>
+				<dict>
+					<key>foreground</key>
+					<string>#FFCB6B</string>
+					<key>fontStyle</key>
+					<string>bold</string>
+				</dict>
+			</dict>
+			<dict>
+				<key>name</key>
 				<string>CSS Class and Support</string>
 				<key>scope</key>
 				<string>source.css support.type, source.sass support.type, source.scss support.type, source.less support.type, source.stylus support.type</string>
@@ -782,7 +817,7 @@ meta.structure</string>
 				<key>name</key>
 				<string>Markdown - Plain</string>
 				<key>scope</key>
-				<string>text.html.markdown, punctuation.definition.list_item.markdown</string>
+				<string>text.html.markdown<!--  punctuation.definition.list_item.markdown --></string>
 				<key>settings</key>
 				<dict>
 					<key>foreground</key>
@@ -994,7 +1029,7 @@ meta.structure</string>
 					<string>#65737e</string>
 				</dict>
 			</dict>
-			<dict>
+	<!-- 		<dict>
 				<key>name</key>
 				<string>Markdown - Punctuation Definition</string>
 				<key>scope</key>
@@ -1004,7 +1039,7 @@ meta.structure</string>
 					<key>foreground</key>
 					<string>#4A4A4A</string>
 				</dict>
-			</dict>
+			</dict> -->
 			<dict>
 				<key>name</key>
 				<string>Markdown HTML - Punctuation Definition</string>

@@ -1,0 +1,12 @@
+{
+	"color_scheme": "Packages/User/Schemes/Better-Dark-Material.tmTheme",
+	"extensions":
+	[
+		"mdown",
+		"txt",
+		"md"
+	],
+	"mde.keep_centered": true,
+	"gutter": true,
+	"highlight_line": true
+}
