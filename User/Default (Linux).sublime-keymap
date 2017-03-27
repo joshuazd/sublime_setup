@@ -1,0 +1,36 @@
+[
+	{ "keys": ["ctrl+tab"], "command": "next_view" },
+	{ "keys": ["ctrl+shift+tab"], "command": "prev_view" },
+	{"keys": ["ctrl+alt+o"], "command": "prompt_open_folder"},
+	{"keys": ["ctrl+alt+q"], "command": "revert"},
+	{ "keys": ["j", "k"], "command": "exit_insert_mode",
+		"context":
+		[
+			{ "key": "setting.command_mode", "operand": false },
+			{ "key": "setting.is_widget", "operand": false }
+		]
+	},
+	{ "keys": ["0"], "command": "set_motion", "args": {
+		"motion": "vi_move_to_first_non_white_space_character",
+		"motion_args": {"extend": true },
+		"clip_to_line": true },
+		"context": [{"key": "setting.command_mode"}]
+	},
+	{ "keys": ["ctrl+v"], "command": "paste_and_indent" },
+	{ "keys": ["ctrl+shift+v"], "command": "paste" },
+	{ "keys": ["z","c"], "command": "fold" ,
+		"context":
+		[
+			{ "key": "setting.command_mode", "operand": false},
+			{ "key": "setting.is_widget", "operand": false}
+		]
+	},
+	{ "keys": ["z","o"], "command": "unfold" ,
+		"context":
+		[
+			{ "key": "setting.command_mode", "operand": false},
+			{ "key": "setting.is_widget", "operand": false}
+		]
+	},
+	{ "keys": ["shift+f4"], "command": "toggle_distraction_free"}
+]
