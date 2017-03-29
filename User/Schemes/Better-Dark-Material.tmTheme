@@ -438,7 +438,7 @@ meta.structure</string>
 					<string>bold</string>
 				</dict>
 			</dict>
-			<dict>
+			<!-- <dict>
 				<key>name</key>
 				<string>Markdown unnumbered list</string>
 				<key>scope</key>
@@ -448,7 +448,7 @@ meta.structure</string>
 					<key>foreground</key>
 					<string>#F78C6C</string>
 				</dict>
-			</dict>
+			</dict> -->
 			<dict>
 				<key>name</key>
 				<string>Markdown list_item</string>

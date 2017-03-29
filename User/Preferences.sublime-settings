@@ -1,4 +1,8 @@
 {
+	"added_words":
+	[
+		"java"
+	],
 	"always_show_minimap_viewport": true,
 	"auto_close_tags": true,
 	"auto_complete_commit_on_tab": true,
@@ -78,6 +82,12 @@
 		"SQLPlus",
 		"SublimeLinter-pep8",
 		"xpath"
+	],
+	"ignored_words":
+	[
+		"Salesforce",
+		"dblookups",
+		"dbreports"
 	],
 	"indent_guide_options":
 	[

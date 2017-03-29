@@ -1,6 +1,6 @@
 {
-	"line_numbers": true,
-	"gutter": false,
+	"line_numbers": false,
+	"gutter": true,
 	"draw_centered": true,
 	"wrap_width": "auto"
 }

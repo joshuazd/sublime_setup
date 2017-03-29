@@ -8,5 +8,6 @@
 	],
 	"mde.keep_centered": true,
 	"gutter": true,
-	"highlight_line": true
+	"highlight_line": true,
+	"spell_check": true,
 }
