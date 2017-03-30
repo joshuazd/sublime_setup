@@ -1,0 +1,14 @@
+{
+	"binary": "C:\\Program Files\\LLVM\\bin\\clang-format.exe",
+	"languages":
+	[
+		"C",
+		"C++",
+		"C++11",
+		"JavaScript",
+		"Objective-C",
+		"Objective-C++",
+		"Java"
+	],
+	"style": "Google"
+}
