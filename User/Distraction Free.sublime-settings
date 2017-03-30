@@ -2,5 +2,6 @@
 	"line_numbers": false,
 	"gutter": true,
 	"draw_centered": true,
-	"wrap_width": "auto"
+	"wrap_width": "auto",
+	"spell_check": false,
 }

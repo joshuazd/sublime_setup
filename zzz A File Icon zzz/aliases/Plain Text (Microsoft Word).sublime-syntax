@@ -5,6 +5,11 @@ name: Plain Text (Microsoft Word)
 file_extensions:
   - doc
   - docx
+  - docm
+  - docxml
+  - dotm
+  - dotx
+  - wri
 scope: text.plain.word
 contexts:
   main:
