@@ -1,7 +1,9 @@
 {
 	"added_words":
 	[
-		"java"
+		"java",
+		"Cafe",
+		"sql"
 	],
 	"always_show_minimap_viewport": true,
 	"auto_close_tags": true,
@@ -70,6 +72,7 @@
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
+		"CodeFormatter",
 		"ElasticTabstops",
 		"ImprovedSQL",
 		"Indent XML",
@@ -80,14 +83,19 @@
 		"Oracle PL SQL",
 		"Python Improved",
 		"SQLPlus",
+		"SublimeAStyleFormatter",
 		"SublimeLinter-pep8",
 		"xpath"
 	],
 	"ignored_words":
 	[
+		"Landline",
 		"Salesforce",
+		"auth",
 		"dblookups",
-		"dbreports"
+		"dbreports",
+		"landline",
+		"util"
 	],
 	"indent_guide_options":
 	[

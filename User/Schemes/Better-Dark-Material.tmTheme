@@ -911,13 +911,13 @@ meta.structure</string>
 				<key>name</key>
 				<string>Markup - Strike</string>
 				<key>scope</key>
-				<string>markup.strike</string>
+				<string>markup.strike, markup.strikethrough</string>
 				<key>settings</key>
 				<dict>
 					<key>fontStyle</key>
 					<string>strike</string>
 					<key>foreground</key>
-					<string></string>
+					<string>#37474Fff</string>
 				</dict>
 			</dict>
 			<dict>
