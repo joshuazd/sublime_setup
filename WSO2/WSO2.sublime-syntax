@@ -319,7 +319,7 @@ contexts:
     - match: '[a-zA-Z][0-9a-zA-Z_\-]*'
       scope: entity.name.tag.xml
   xpath:
-    - match: (?<=select\=\")|(?<=filter source\=\")|(?<=when test\=\")|(?<=xpath\=\")|(?<=expression=\")|(?<=value=\"{)
+    - match: (?<=select\=\")|(?<=source\=\")|(?<=when test\=\")|(?<=xpath\=\")|(?<=expression=\")|(?<=value=\"{)
       push:
         - meta_scope: meta.string.xpath.wso2
         - include: xpath_continue

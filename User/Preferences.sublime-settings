@@ -82,20 +82,26 @@
 		"Markdown",
 		"Oracle PL SQL",
 		"Python Improved",
+		"ScrollOffset",
 		"SQLPlus",
 		"SublimeAStyleFormatter",
 		"SublimeLinter-pep8",
+		"VintageLines",
 		"xpath"
 	],
 	"ignored_words":
 	[
 		"Landline",
 		"Salesforce",
+		"Weblogic",
 		"auth",
 		"dblookups",
 		"dbreports",
+		"entweb",
 		"landline",
-		"util"
+		"rundeck",
+		"util",
+		"weblogic"
 	],
 	"indent_guide_options":
 	[
@@ -116,6 +122,7 @@
 	"material_theme_tree_headings": true,
 	"mdpopups.use_sublime_highlighter": true,
 	"overlay_scroll_bars": "enabled",
+	"show_line_endings": true,
 	"show_tab_close_buttons": true,
 	"spacegray_fileicons": true,
 	"spacegray_sidebar_font_normal": true,
@@ -136,5 +143,6 @@
 	"theme_sidebar_icon_saturation_md": true,
 	"trim_automatic_white_space": false,
 	"vintage_start_in_command_mode": true,
+	"vintage_use_clipboard": true,
 	"word_wrap": true
 }

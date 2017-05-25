@@ -16,6 +16,19 @@
 		"clip_to_line": true },
 		"context": [{"key": "setting.command_mode"}]
 	},
+	{ "keys": ["H"], "command": "set_motion", "args": {
+		"motion": "vi_move_to_first_non_white_space_character",
+		"motion_args": {"extend": true },
+		"clip_to_line": true },
+		"context": [{"key": "setting.command_mode"}]
+	},
+	{ "keys": ["L"], "command": "set_motion", "args": {
+		"motion": "vi_move_to_hard_eol",
+		"motion_args": {"repeat": 1, "extend": true},
+		"inclusive": true,
+		"clip_to_line": true },
+		"context": [{"key": "setting.command_mode"}]
+	},
 	{ "keys": ["ctrl+v"], "command": "paste_and_indent" },
 	{ "keys": ["ctrl+shift+v"], "command": "paste" },
 	{ "keys": ["z","c"], "command": "fold" ,
@@ -33,4 +46,16 @@
 		]
 	},
 	{ "keys": ["ctrl+alt+f"], "command": "clang_format" },
+	{ "keys": ["ctrl+alt+j"], "command": "select_lines",
+		"args": {
+			"forward": true
+		},
+		"context": [{"key": "setting.command_mode"}]
+	},
+	{ "keys": ["ctrl+alt+k"], "command": "select_lines",
+		"args": {
+			"forward": false
+		},
+		"context": [{"key": "setting.command_mode"}]
+	},
 ]
