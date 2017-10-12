@@ -3,11 +3,19 @@
 	[
 		"java",
 		"Cafe",
-		"sql"
+		"sql",
+		"varchar2",
+		"plugin",
+		"Inline",
+		"inline",
+		"linting",
+		"strikethrough",
+		"Ctrl",
+		"xml"
 	],
 	"always_show_minimap_viewport": true,
 	"auto_close_tags": true,
-	"auto_complete_commit_on_tab": true,
+	"auto_complete_commit_on_tab": false,
 	"auto_complete_selector": "meta.tag - punctuation.definition.tag.begin, source - comment - string.quoted.double.block - string.quoted.single.block - string.unquoted.heredoc, text, source.wso2",
 	"auto_complete_triggers":
 	[
@@ -68,10 +76,11 @@
 		"gdi",
 		"subpixel_antialias"
 	],
-	"font_size": 11,
+	"font_size": 10,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
+		"ActualVim",
 		"CodeFormatter",
 		"ElasticTabstops",
 		"ImprovedSQL",
@@ -86,8 +95,7 @@
 		"SQLPlus",
 		"SublimeAStyleFormatter",
 		"SublimeLinter-pep8",
-		"VintageLines",
-		"xpath"
+		"VintageLines"
 	],
 	"ignored_words":
 	[
@@ -100,6 +108,7 @@
 		"entweb",
 		"landline",
 		"rundeck",
+		"undeploy",
 		"util",
 		"weblogic"
 	],
@@ -108,8 +117,8 @@
 		"draw_normal",
 		"draw_active"
 	],
-	"line_padding_bottom": 2,
-	"line_padding_top": 2,
+	"line_padding_bottom": 0,
+	"line_padding_top": 0,
 	"margin": 0,
 	"match_brackets": false,
 	"match_brackets_angle": true,

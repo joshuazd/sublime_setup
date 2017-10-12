@@ -3,7 +3,6 @@
 	"extensions":
 	[
 		"mdown",
-		"txt",
 		"md"
 	],
 	"mde.keep_centered": true,

@@ -6,6 +6,7 @@
 	"installed_packages":
 	[
 		"A File Icon",
+		"ActualVim",
 		"Advanced CSV",
 		"All Autocomplete",
 		"Anaconda",
@@ -64,6 +65,7 @@
 		"SublimeLinter-xmllint",
 		"Themr",
 		"TrailingSpaces",
+		"VintageES",
 		"VintageLines",
 		"xml2json",
 		"xpath"

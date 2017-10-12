@@ -1,4 +1,5 @@
 {
+	"auto_close_tags": true,
 	"extensions":
 	[
 		"sublime-snippet",
@@ -9,6 +10,21 @@
 		"xml",
 		"dbs"
 	],
-	"tab_size": 2,
-	"auto_close_tags": true
+	"hidden_extensions":
+	[
+		"rss",
+		"vcproj",
+		"tmLanguage",
+		"tmTheme",
+		"tmSnippet",
+		"dae"
+	],
+	"package_dev.bootstrapped":
+	[
+		3126,
+		2017,
+		3,
+		13
+	],
+	"tab_size": 2
 }

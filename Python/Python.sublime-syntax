@@ -80,7 +80,7 @@ contexts:
       scope: constant.other.caps.python
       
   colon:
-    - match: (?<=[\w\]\)])(:)
+    - match: (?<=[\w\]\)'"])(:)
       scope: punctuation.section.begin.python
   
   dot:

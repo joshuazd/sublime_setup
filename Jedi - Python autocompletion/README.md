@@ -20,9 +20,9 @@ Installation
 
  1. Open command pallet (default: `ctrl+shift+p`)
  2. Type `package control install` and select command `Package Control: Install Package`
- 3. Type `jedi` and select "SublimeJEDI"
+ 3. Type `Jedi` and select `Jedi - Python autocompletion`
 
-Additonal info installations you can find here [http://wbond.net/sublime_packages/package_control/usage](http://wbond.net/sublime_packages/package_control/usage).
+Additional info about to use Sublime Package Control you can find here: [http://wbond.net/sublime_packages/package_control/usage](http://wbond.net/sublime_packages/package_control/usage).
 
 Settings
 --------
@@ -48,9 +48,10 @@ You can set Python interpreter, and additional python package directories, using
             "python_package_paths": [
                 "$home/.buildout/eggs",
                 "$project_path/addons"
-                ]
+            ]
         }
     }
+**NOTE**: Please note that Python will goes through the directories from `"python_package_paths"` to search for modules and files. In other words, each item in `"python_package_paths"` list is a directory with extra packages and modules, not a direct path to package or module.
 
 When setting paths, [Sublime Text Build System Variables](http://docs.sublimetext.info/en/latest/reference/build_systems.html#build-system-variables) and OS environment variables are automatically expanded.
 Note that using placeholders and substitutions, like in regular Sublime Text Build System paths is not supported.
@@ -78,7 +79,7 @@ set (additionally to the trigger above):
     }
 
 
-#### Jedi Goto / Go Definition
+#### Goto / Go Definition
 
 Find function / variable / class definition
 
@@ -95,18 +96,51 @@ Now you can bind `CTRL + LeftMouseButton` by themself in this way:
     }]
 
 
-#### Jedi Find Related Names ("Find Usages")
+#### Find Related Names ("Find Usages")
 
 Find function / method / variable / class usage, definition.
 
-Shortcut: `Alt+Shift+f`.
+Shortcut: `ALT+SHIFT+F`.
 
 
-#### Jedi Show Docstring
+#### Show Python Docstring
 
-Show docstring in output panel.
+Show docstring as tooltip.
 
-Exposed command is `sublime_jedi_docstring` which can be assigned to appropriate shortcut (i.e. `F1`).
+For ST2:
+	Show docstring in output panel.
+
+Shortcut: `CTRL+ALT+D`.
+
+
+#### Styling Python Docstring
+
+If available [mdpopups](https://github.com/facelessuser/sublime-markdown-popups) is used to display the docstring tooltips. To modify the style please follow mdpopups' [styling guide](http://facelessuser.github.io/sublime-markdown-popups/styling).
+
+Basically a `Packages/User/mdpopups.css` is required to define your own style.
+
+To specify rules which apply to Jedi tooltips only, use `.jedi` selector as displayed in the following example.
+
+```css
+
+/* JEDI's python function signature */
+.jedi .highlight {
+    font-size: 1.1rem;
+}
+
+/* JEDI's docstring titles
+  
+  h6 is used to highlight special keywords in the docstring such as
+
+  Args:
+  Return:
+*/
+.jedi h6 {
+    font-weight: bold;
+}
+```
+
+mdpopups provides a [default.css](https://github.com/facelessuser/sublime-markdown-popups/blob/master/css/default.css) which might be used as cheat sheet to learn about the available styles.
 
 
 #### Jedi Show Calltip
@@ -114,6 +148,7 @@ Exposed command is `sublime_jedi_docstring` which can be assigned to appropriate
 Show calltip in status bar.
 
 Exposed command is `sublime_jedi_signature`.
+
 
 #### Function args fill up on completion
 
@@ -202,11 +237,11 @@ Troubleshooting
 
 It's a common issue for ST3.
 All language related settings are stored in Python Package.
-There is a `Completion Rules.tmPreferences` file where defined that completion should be canceled after some list of keywords (def, class, import & etc.).
+There is a `Completion Rules.tmPreferences` file where defined that completion should be cancelled after a keyword (def, class, import & etc.).
 
-Sublime Jedi plugin already has `Completion Rules.tmPreferences` file for ST2, but ST3 ignores it.
+To solve this issue Sublime Jedi plugin already has a proper `Completion Rules.tmPreferences` file for ST2, but ST3 ignores it.
 
-Some workarounds how to update completion rules:
+Some workarounds how to update completion rules and fix the issue:
 
 ##### Copy-Paste
 
@@ -216,7 +251,7 @@ Some workarounds how to update completion rules:
 ##### There is package for this...
 
     1. install Package https://packagecontrol.io/packages/PackageResourceViewer
-    2. cmd+shift+p (Command Pannel)
+    2. cmd+shift+p (Command Panel)
     2.1. type `PackageResourceViewer: Open Resource`
     2.2. type `python` and select Python package
     2.3. type `Completion Rules.tmPreferences`
